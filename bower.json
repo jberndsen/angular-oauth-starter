@@ -1,6 +1,7 @@
 {
   "name": "angular-oauth-starter",
   "description": "Starter pack for integrating JWT token security in your Angular application.",
+  "version": "1.0.0",
   "main": "index.js",
   "authors": [
     "Jeroen Berndsen"
