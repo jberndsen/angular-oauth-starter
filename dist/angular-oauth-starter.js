@@ -99,20 +99,19 @@
 	
 	function AuthService($http, $q, jwtHelper, localStorageService, $rootScope, tokenEndpoint) {
 		//////////////////////////////////
-		// Service globals
-		var loginPromise, authenticationCache;
-		
-		//////////////////////////////////
 		// Service interface
 		return {
 			login: login,
 			logout: logout,
 			getAuth: getAuth,
-			userHasClaim: userHasClaim
+			userHasClaim: userHasClaim,
+			userIsAuthenticated: userIsAuthenticated
 		}
 		
 		//////////////////////////////////
 		// Service implementation
+		var loginPromise, authenticationCache;
+		
 		function login(username, password) {
 			return $q.when(authenticationCache || (loginPromise ? loginPromise.promise : loginAsync(username, password)));
 		}
@@ -153,6 +152,11 @@
 			}
 			
 			return false;
+		}
+		
+		function userIsAuthenticated() {
+			updateCache();
+			return (authenticationCache && authenticationCache.isAuthenticated);
 		}
 		
 		function updateCache() {
