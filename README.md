@@ -29,6 +29,31 @@ app.config(function (AuthServiceProvider, $httpProvider) {
 		$httpProvider.interceptors.push('AuthInterceptor');
 });
 ````
+
+## providing login functionality for your users
+Simple build a regular login page, with a controller that can read the username and password from the scope.
+Then, use the AuthService to attempt a login:
+
+````js
+angular.module('app').controller('LoginController', function (AuthService) {
+	var vm = this;
+	
+	// attach this method to a login button
+	vm.login = function() {
+		AuthService.login(vm.username, vm.password).then(function (result) {
+			if (result && result.isAuthenticated) {
+				// login succesful! Redirect the user to a success path
+			} else {
+				// login failed, show an error message here	
+			}
+		}, function (error) {
+			// an error occurred while attempting to login, please check console for further details
+			console.debug(error);
+		});
+	}
+});
+````
+
 ## Hiding restricted elements
 Can be done using the claimsRequired directive as follows:
 
