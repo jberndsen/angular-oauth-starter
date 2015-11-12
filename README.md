@@ -31,7 +31,7 @@ app.config(function (AuthServiceProvider, $httpProvider) {
 ````
 
 ## providing login functionality for your users
-Simple build a regular login page, with a controller that can read the username and password from the scope.
+Build a regular login page, with a controller that can read the username and password from the scope.
 Then, use the AuthService to attempt a login:
 
 ````js
@@ -52,6 +52,17 @@ angular.module('app').controller('LoginController', function (AuthService) {
 		});
 	}
 });
+````
+
+## Logging out
+Simply call the logout() method on the AuthService. This will remove any auth caching and the token from memory,
+effectively logging out the user.
+
+## Programatically check if a user has certain claims
+Call the userHasClaim(CLAIM_NAME) method on the AuthService:
+
+````js
+vm.userHasAccess = AuthService.userHasClaim('personalAccess');
 ````
 
 ## Hiding restricted elements
